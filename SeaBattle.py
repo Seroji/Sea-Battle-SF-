@@ -1,8 +1,11 @@
+from random import randint
+
+
 class BoardException(Exception):
     pass
 
 
-class BoarUsedException(BoardException):
+class BoardUsedException(BoardException):
     def __str__(self):
         return "Вы уже стреляли в эту клетку!"
 
@@ -57,7 +60,7 @@ class Board:
         self.lives = []
         self.ships = []
         self.size = size
-        count = 0
+        self.count = 0
 
     def add_ship(self, ship):
         for dot in ship.dots:
@@ -85,23 +88,73 @@ class Board:
                 d = Dot(mod_x, mod_y)
                 if d not in self.busy and not self.out(d):
                     self.busy.append(d)
-                    self.field[d.x][d.y] = '.'
+                    if not hiding_status:
+                        self.field[d.x][d.y] = "."
 
     def __str__(self):
         conclusion = ""
         conclusion += "  | 1 | 2 | 3 | 4 | 5 | 6 |"
         for index, value in enumerate(self.field):
             conclusion += f"\n{index + 1} | " + " | ".join(map(str, value)) + " |"
+        if self.hid:
+            conclusion = conclusion.replace("■", "0")
         return conclusion
 
     def out(self, dot):
         return not ((0 <= dot.x <= self.size) and (0 <= dot.y <= self.size))
 
-    
+    def shot(self, dot):
+        self.busy = []
+        if self.out(dot):
+            raise BoardOutException
+        if dot in self.busy:
+            raise BoardUsedException
+        for ship in self.ships:
+            if dot in ship.dots:
+                ship.lives -= 1
+                if not ship.lives:
+                    self.count += 1
+                    print('Корабль ранен!')
+                else:
+                    print('Корабль уничтожен!') # Возможно требуются дополнения
 
+
+class Player:
+    def __init__(self, board, enemy):
+        self.board = board
+        self.enemy = enemy
+
+    def ask(self):
+        pass
+
+    def move(self):
+        while True:
+            try:
+                obj = self.ask()
+                repeat = self.enemy.shot(obj)
+                return repeat
+            except BoardException as e:
+                print(e)
+
+
+class AI(Player):
+    def ask(self):
+        dot = Dot(randint(0,5), randint(0,5))
+        return dot
+
+
+class User(Player):
+    def ask(self):
+        while True:
+            coordinates = input('Введите координаты в формате X, Y')
+            if len(coordinates) != 3:
+                print("Введите координаты в указанном формате!")
+            x, y = ",".split(coordinates)
+            if (x.isdigital)
+        return dot
 
 ship_1 = Ship(Dot(2, 2), 1, 0)
 print(ship_1.dots)
 b = Board()
 b.add_ship(ship_1)
-print(b)
+print(b.shot(Dot(0,0)))
