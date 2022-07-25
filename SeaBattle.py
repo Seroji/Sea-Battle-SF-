@@ -75,7 +75,6 @@ class Board:
         self.contour(ship)
 
     def contour(self, ship, hiding_status = True):
-        self.busy = []
         exodus = [
             Dot(-1, 1), Dot(0, 1), Dot(1, 1),
             Dot(-1, 0), Dot(0, 0), Dot(1, 0),
@@ -121,6 +120,7 @@ class Board:
                     return True
                 else:
                     print('Корабль ранен!')
+                    print("-" * 20)
                     self.field[dot.x][dot.y] = "X"
                     return True
         print('Промах!')
@@ -150,6 +150,7 @@ class Player:
 class AI(Player):
     def ask(self):
         dot = Dot(randint(0,5), randint(0,5))
+        print(f"Выбранная компьютером точка: {dot.x},{dot.y}")
         return dot
 
 
@@ -178,7 +179,7 @@ class Game:
         ai_board = self.random_board()
         self.us = User(us_board, ai_board)
         self.ai = AI(ai_board, us_board)
-        ai_board.hid = False
+        ai_board.hid = True
 
     @staticmethod
     def random_place():
@@ -212,11 +213,11 @@ class Game:
     def loop(self):
         turn = 0
         while True:
-            print("Доска компьютера")
-            print(self.ai.board)
-            print("-" * 20)
-            print("Ваша доска")
+            print("Ваша доска:")
             print(self.us.board)
+            print("-" * 20)
+            print("Доска компьютера:")
+            print(self.ai.board)
             print("-" * 20)
             if turn == 0:
                 print('Ваш ход!')
@@ -227,7 +228,6 @@ class Game:
                     break
 
             if turn == 1:
-                print("-" * 20)
                 print('Ход компьютера!')
                 self.ai.move()
                 turn -= 1

@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="19dfe589-e48f-4cb2-9ca9-b5815ad6a755" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SeaBattle.py" beforeDir="false" afterPath="$PROJECT_DIR$/SeaBattle.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
