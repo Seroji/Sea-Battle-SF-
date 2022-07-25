@@ -163,6 +163,49 @@ class User(Player):
             return dot
 
 
+class Game:
+    def __init__(self):
+        self.us_board = Board()
+        self.ai_board = Board()
+        self.us = User(self.us_board, self.ai_board)
+        self.ai = AI(self.ai_board, self.us_board)
+
+    @staticmethod
+    def random_place():
+        vehicles = [3, 2, 2, 1, 1, 1, 1]
+        board = Board()
+        attempts = 0
+        for sh in vehicles:
+            while True:
+                attempts += 1
+                if attempts > 2000:
+                    return None
+                ship = Ship(Dot(randint(0, 5), randint(0, 5)), sh, randint(0, 1))
+                try:
+                    board.add_ship(ship)
+                    break
+                except BoardShipWrongException:
+                    pass
+                except IndexError:
+                    pass
+        return board
+
+    def random_board(self):
+        board = None
+        while board is None:
+            board = self.random_place()
+        return board
+
+    def greet(self):
+        print('Добро пожаловать в игру')
+        print('Морской бой')
+        print('-' * 20)
+
+
+g = Game()
+print(g.random_board())
+
+
 
 
 

@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="19dfe589-e48f-4cb2-9ca9-b5815ad6a755" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/For test.py" beforeDir="false" afterPath="$PROJECT_DIR$/For test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SeaBattle.py" beforeDir="false" afterPath="$PROJECT_DIR$/SeaBattle.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -42,7 +41,7 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;file.status.colors&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.main (1)">
+  <component name="RunManager" selected="Python.SeaBattle">
     <configuration name="123" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="SkillFactory" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -150,8 +149,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main (1)" />
         <item itemvalue="Python.SeaBattle" />
+        <item itemvalue="Python.main (1)" />
         <item itemvalue="Python.For test" />
         <item itemvalue="Python.123" />
         <item itemvalue="Python.To practice" />
