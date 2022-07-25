@@ -80,6 +80,7 @@ class Board:
             Dot(-1, 0), Dot(0, 0), Dot(1, 0),
             Dot(-1, -1), Dot(0, -1), Dot(1, -1)
         ]
+        cont = []
         for dot in ship.dots:
             for contour_dot in exodus:
                 mod_x = dot.x + contour_dot.x
@@ -205,6 +206,7 @@ class Game:
             board = self.random_place()
         return board
 
+    @staticmethod
     def greet(self):
         print('Добро пожаловать в игру')
         print('Морской бой')
