@@ -117,6 +117,10 @@ class Board:
                     print('Корабль ранен!')
                 else:
                     print('Корабль уничтожен!') # Возможно требуются дополнения
+                self.field[dot.x][dot.y] = "X"
+            else:
+                print('Промах!')
+                self.field[dot.x][dot.y] = "."
 
 
 class Player:
@@ -146,15 +150,21 @@ class AI(Player):
 class User(Player):
     def ask(self):
         while True:
-            coordinates = input('Введите координаты в формате X, Y')
+            coordinates = input('Введите координаты в формате X, Y: ')
             if len(coordinates) != 3:
                 print("Введите координаты в указанном формате!")
-            x, y = ",".split(coordinates)
-            if (x.isdigital)
-        return dot
+                continue
+            x, y = coordinates.split(",")
+            if not ((x.isnumeric()) and (y.isnumeric())):
+                print('Введите координаты в форме целых чисел!')
+                continue
+            x, y = int(x), int(y)
+            dot = Dot(x - 1, y - 1)
+            return dot
 
-ship_1 = Ship(Dot(2, 2), 1, 0)
-print(ship_1.dots)
-b = Board()
-b.add_ship(ship_1)
-print(b.shot(Dot(0,0)))
+
+
+
+
+
+
