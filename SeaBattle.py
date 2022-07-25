@@ -101,7 +101,7 @@ class Board:
         return conclusion
 
     def out(self, dot):
-        return not ((0 <= dot.x <= self.size) and (0 <= dot.y <= self.size))
+        return not ((0 <= dot.x < self.size) and (0 <= dot.y < self.size))
 
     def shot(self, dot):
         self.busy = []
@@ -109,18 +109,21 @@ class Board:
             raise BoardOutException
         if dot in self.busy:
             raise BoardUsedException
+        self.busy.append(dot)
         for ship in self.ships:
             if dot in ship.dots:
                 ship.lives -= 1
+                self.count += 1
                 if not ship.lives:
-                    self.count += 1
                     print('Корабль ранен!')
                 else:
                     print('Корабль уничтожен!') # Возможно требуются дополнения
                 self.field[dot.x][dot.y] = "X"
+                break
             else:
                 print('Промах!')
                 self.field[dot.x][dot.y] = "."
+                break
 
 
 class Player:
@@ -154,6 +157,9 @@ class User(Player):
             if len(coordinates) != 3:
                 print("Введите координаты в указанном формате!")
                 continue
+            if coordinates[1] != ',':
+                print('Введите корректные координаты!')
+                continue
             x, y = coordinates.split(",")
             if not ((x.isnumeric()) and (y.isnumeric())):
                 print('Введите координаты в форме целых чисел!')
@@ -165,15 +171,15 @@ class User(Player):
 
 class Game:
     def __init__(self):
-        self.us_board = Board()
-        self.ai_board = Board()
+        self.us_board = self.random_board()
+        self.ai_board = self.random_board()
         self.us = User(self.us_board, self.ai_board)
         self.ai = AI(self.ai_board, self.us_board)
 
     @staticmethod
     def random_place():
-        vehicles = [3, 2, 2, 1, 1, 1, 1]
-        board = Board()
+        vehicles = [3,2,2]
+        board = Board(hid=False)
         attempts = 0
         for sh in vehicles:
             while True:
@@ -185,8 +191,6 @@ class Game:
                     board.add_ship(ship)
                     break
                 except BoardShipWrongException:
-                    pass
-                except IndexError:
                     pass
         return board
 
@@ -201,11 +205,40 @@ class Game:
         print('Морской бой')
         print('-' * 20)
 
+    def loop(self):
+        turn = 0
+        while True:
+            print("Доска компьютера")
+            print(self.ai_board)
+            print("-" * 20)
+            print("Ваша доска")
+            print(self.us_board)
+            print("-" * 20)
+            if turn == 0:
+                print('Ваш ход!')
+                self.us.move()
+                turn += 1
+
+            if turn == 1:
+                print('Ход компьютера!')
+                self.ai.move()
+                turn -= 1
+
+            if self.us_board.count == 7:
+                print('Победа пользователя!')
+                break
+
+            if self.ai_board.count == 7:
+                print('Победа компьютера!')
+                break
+
+    def start(self):
+        self.greet()
+        self.loop()
+
 
 g = Game()
-print(g.random_board())
-
-
+g.start()
 
 
 
