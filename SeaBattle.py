@@ -70,7 +70,6 @@ class Board:
             cur_x = dot.x
             cur_y = dot.y
             self.field[cur_x][cur_y] = "■"
-            self.busy.append(dot)
         self.ships.append(ship)
         self.contour(ship)
 
@@ -86,7 +85,7 @@ class Board:
                 mod_x = dot.x + contour_dot.x
                 mod_y = dot.y + contour_dot.y
                 d = Dot(mod_x, mod_y)
-                if d not in self.busy and not self.out(d):
+                if d not in self.busy_dot and not self.out(d):
                     self.busy.append(d)
                     if not hiding_status:
                         self.field[d.x][d.y] = "."
@@ -207,7 +206,7 @@ class Game:
         return board
 
     @staticmethod
-    def greet(self):
+    def greet():
         print('Добро пожаловать в игру')
         print('Морской бой')
         print('-' * 20)
