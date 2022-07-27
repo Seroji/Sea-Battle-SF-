@@ -89,6 +89,7 @@ class Board:
                     self.busy.append(d)
                     if not hiding_status:
                         self.field[d.x][d.y] = "."
+                        self.busy_dot.append(d)
 
     def __str__(self):
         conclusion = ""
@@ -226,6 +227,12 @@ class Game:
                 turn += 1
                 if self.ai.board.count == 11:
                     print('Победа пользователя!')
+                    print("Ваша доска:")
+                    print(self.us.board)
+                    print("-" * 20)
+                    print("Доска компьютера:")
+                    print(self.ai.board)
+                    print("-" * 20)
                     break
 
             if turn == 1:
@@ -234,6 +241,12 @@ class Game:
                 turn -= 1
                 if self.us.board.count == 11:
                     print('Победа компьютера!')
+                    print("Ваша доска:")
+                    print(self.us.board)
+                    print("-" * 20)
+                    print("Доска компьютера:")
+                    print(self.ai.board)
+                    print("-" * 20)
                     break
 
     def start(self):
